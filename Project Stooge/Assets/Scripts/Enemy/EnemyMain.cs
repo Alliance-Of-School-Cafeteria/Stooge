@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
+
 
 public class EnemyMain : MonoBehaviour
 {
@@ -9,9 +9,9 @@ public class EnemyMain : MonoBehaviour
     public int maxHealth;
     public int curHealth;
 
-    public Transform target;
+    
 
-//    NavMeshAgent nav;
+
     Rigidbody rigid;
     BoxCollider boxCollider;
     Material mat;
@@ -21,14 +21,20 @@ public class EnemyMain : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         boxCollider = GetComponent<BoxCollider>();
         mat = GetComponent<MeshRenderer>().material;
-//        nav = GetComponent<>(NavMeshAgent);
 
     }
-    void Update()
+    void FreezeVelocity()
     {
-//        nav.SetDestination(target.position);
+        rigid.velocity = Vector3.zero;
+        rigid.angularVelocity = Vector3.zero;
+    }
+
+    void FixedUpdate()
+    {
+        FreezeVelocity();
 
     }
+
 
     
 //    void OnTriggerEnter(Collider other)
