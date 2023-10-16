@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rigid;
     private CameraController camControl;
     private PlayerMain playerMain;
+    private GroundCheck groundCheck;
 
     /* ----------- 입력 값 저장 변수 ----------- */
     private Vector2 moveInput;
@@ -19,7 +20,6 @@ public class PlayerController : MonoBehaviour
     private bool isMove = false;
     private bool isJump = false;
     private bool isAttack = false;
-    private bool isGrounded = false;
 
     /* ------------ 방향 저장 변수 ------------- */
     private Vector3 moveDir;
@@ -39,11 +39,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 raySize = new Vector3(1.8f, 0.6f, 1.8f);
 
     /* ---------------- 프로퍼티 --------------- */
-    public void SetIsGrounded(bool bol)
-    {
-        isGrounded = bol;
-    }
-
     public void SetForward(Vector3 dir)
     {
         playerBody.forward = dir;
@@ -56,6 +51,7 @@ public class PlayerController : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         camControl = GetComponentInChildren<CameraController>();
         playerMain = GetComponent<PlayerMain>();
+        groundCheck = GetComponentInChildren<GroundCheck>();
     }
 
     void Update()
@@ -106,26 +102,27 @@ public class PlayerController : MonoBehaviour
         else
             rigid.velocity = new Vector3(0f, rigid.velocity.y, 0f); // 미끄러짐 방지
 
-        anim.SetBool("isRun", isMove);     // true일 때 걷는 애니메이션, false일 때 대기 애니메이션
+        //anim.SetBool("isRun", isMove);     // true일 때 걷는 애니메이션, false일 때 대기 애니메이션
     }
 
     private void PlayerJump()
     {
-        if (jumpInput && !isJump && !playerMain.GetIsHit() && !isAttack)
+        if (jumpInput && !isJump && !isAttack)
         {
             isJump = true;
-            isGrounded = false;
 
             rigid.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
 
-            anim.SetBool("isJump", true);
-            anim.SetTrigger("doJump");
+            //anim.SetBool("isJump", true);
+            //anim.SetTrigger("doJump");
+
+            Debug.Log("점프");
         }
     }
 
     private void PlayerAttack()
     {
-        if (attackInput && !isAttack && !playerMain.GetIsHit())
+        if (attackInput && !isAttack)
         {
             Debug.Log("Attack");
         }
@@ -133,14 +130,14 @@ public class PlayerController : MonoBehaviour
 
     private void GroundCheck()
     {
-        if (rigid.velocity.y > 0) // 추락이 아닐 때
+        if (rigid.velocity.y >= -1) // 추락이 아닐 때
             return;
 
-        if (isGrounded)
+        if (groundCheck.IsGround)
         {
             isJump = false;
-            anim.SetBool("isJump", false);
-            //Debug.Log("착지");
+            //anim.SetBool("isJump", false);
+            Debug.Log(rigid.velocity.y);
         }
     }
 }
