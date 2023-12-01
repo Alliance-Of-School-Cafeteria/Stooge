@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController_NonVR : MonoBehaviour
 {
     /* ------------- 컴포넌트 변수 ------------- */
     private Animator anim;
     private Rigidbody rigid;
     private CameraController camControl;
-    private PlayerMain playerMain;
+    private PlayerMain_NonVR playerMain;
     private GroundCheck groundCheck;
 
     /* ----------- 입력 값 저장 변수 ----------- */
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         rigid = GetComponent<Rigidbody>();
         camControl = GetComponentInChildren<CameraController>();
-        playerMain = GetComponent<PlayerMain>();
+        playerMain = GetComponent<PlayerMain_NonVR>();
         groundCheck = GetComponentInChildren<GroundCheck>();
     }
 
