@@ -3430,10 +3430,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a10d8a2f8bf7544a32a3122e770ca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Acceleration: 0.1
+  Acceleration: 0.15
   Damping: 0.3
   BackAndSideDampen: 0.5
-  JumpForce: 0.5
+  JumpForce: 0.2
   RotationAmount: 1.5
   RotationRatchet: 45
   SnapRotation: 0
