@@ -3433,7 +3433,7 @@ MonoBehaviour:
   Acceleration: 0.1
   Damping: 0.3
   BackAndSideDampen: 0.5
-  JumpForce: 0.3
+  JumpForce: 0.5
   RotationAmount: 1.5
   RotationRatchet: 45
   SnapRotation: 0
