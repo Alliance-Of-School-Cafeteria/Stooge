@@ -931,6 +931,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Railroad_1
       objectReference: {fileID: 0}
+    - target: {fileID: 1782868595169491532, guid: d6045fb1f0111354ca4f0d873bc86030, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1782868595169491532, guid: d6045fb1f0111354ca4f0d873bc86030, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 2258378503142543760, guid: d6045fb1f0111354ca4f0d873bc86030, type: 3}
       propertyPath: m_LocalPosition.x
       value: -109.6
@@ -3413,6 +3421,14 @@ PrefabInstance:
     - target: {fileID: 2533950683923317617, guid: a666c0d763a10a747b8f732d29f50fcd, type: 3}
       propertyPath: m_Name
       value: Bridge
+      objectReference: {fileID: 0}
+    - target: {fileID: 2533950683923317617, guid: a666c0d763a10a747b8f732d29f50fcd, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2533950683923317617, guid: a666c0d763a10a747b8f732d29f50fcd, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 4093505271884965319, guid: a666c0d763a10a747b8f732d29f50fcd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6590,6 +6606,14 @@ PrefabInstance:
     - target: {fileID: 324689861309260408, guid: 8b619e67c301d6a48ac5b4bb4a4a6d93, type: 3}
       propertyPath: m_Name
       value: Mansion (EV) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 324689861309260408, guid: 8b619e67c301d6a48ac5b4bb4a4a6d93, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 324689861309260408, guid: 8b619e67c301d6a48ac5b4bb4a4a6d93, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 2968468141601922211, guid: 8b619e67c301d6a48ac5b4bb4a4a6d93, type: 3}
       propertyPath: m_LocalPosition.y
@@ -9828,7 +9852,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1102712786305584, guid: 4d608f5f0d07ba34caaa573a25d56871, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4348138480432750, guid: 4d608f5f0d07ba34caaa573a25d56871, type: 3}
       propertyPath: m_RootOrder
@@ -11422,6 +11446,14 @@ PrefabInstance:
     - target: {fileID: 1455971615411489490, guid: 2fe1b9b488c1dcc45acb0be78e1df0e0, type: 3}
       propertyPath: m_Name
       value: Clock Tower_2 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1455971615411489490, guid: 2fe1b9b488c1dcc45acb0be78e1df0e0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1455971615411489490, guid: 2fe1b9b488c1dcc45acb0be78e1df0e0, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 1629820488041847158, guid: 2fe1b9b488c1dcc45acb0be78e1df0e0, type: 3}
       propertyPath: m_LocalScale.x
@@ -16743,6 +16775,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Clock Tower
       objectReference: {fileID: 0}
+    - target: {fileID: 305175107201951003, guid: e5ba76456a51b1d43bc9fd2ff43d6eb6, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 305175107201951003, guid: e5ba76456a51b1d43bc9fd2ff43d6eb6, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 1043142101726264803, guid: e5ba76456a51b1d43bc9fd2ff43d6eb6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -27.7
@@ -17732,7 +17772,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!20 &760774807
 Camera:
   m_ObjectHideFlags: 0
@@ -19393,6 +19433,14 @@ PrefabInstance:
     - target: {fileID: 324689861309260408, guid: 8b619e67c301d6a48ac5b4bb4a4a6d93, type: 3}
       propertyPath: m_Name
       value: Mansion (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 324689861309260408, guid: 8b619e67c301d6a48ac5b4bb4a4a6d93, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 324689861309260408, guid: 8b619e67c301d6a48ac5b4bb4a4a6d93, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 526650715925330238, guid: 8b619e67c301d6a48ac5b4bb4a4a6d93, type: 3}
       propertyPath: m_LocalPosition.y
@@ -26112,6 +26160,14 @@ PrefabInstance:
     - target: {fileID: 324689861309260408, guid: 8b619e67c301d6a48ac5b4bb4a4a6d93, type: 3}
       propertyPath: m_Name
       value: Mansion (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 324689861309260408, guid: 8b619e67c301d6a48ac5b4bb4a4a6d93, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 324689861309260408, guid: 8b619e67c301d6a48ac5b4bb4a4a6d93, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 526650715925330238, guid: 8b619e67c301d6a48ac5b4bb4a4a6d93, type: 3}
       propertyPath: m_LocalPosition.y
@@ -41614,6 +41670,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Clock Tower (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 305175107201951003, guid: e5ba76456a51b1d43bc9fd2ff43d6eb6, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 305175107201951003, guid: e5ba76456a51b1d43bc9fd2ff43d6eb6, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 1043142101726264803, guid: e5ba76456a51b1d43bc9fd2ff43d6eb6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -234.48
@@ -42143,6 +42207,14 @@ PrefabInstance:
     - target: {fileID: 324689861309260408, guid: 8b619e67c301d6a48ac5b4bb4a4a6d93, type: 3}
       propertyPath: m_Name
       value: Mansion (EV)
+      objectReference: {fileID: 0}
+    - target: {fileID: 324689861309260408, guid: 8b619e67c301d6a48ac5b4bb4a4a6d93, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 324689861309260408, guid: 8b619e67c301d6a48ac5b4bb4a4a6d93, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 2968468141601922211, guid: 8b619e67c301d6a48ac5b4bb4a4a6d93, type: 3}
       propertyPath: m_LocalPosition.y
@@ -43265,6 +43337,14 @@ PrefabInstance:
     - target: {fileID: 324689861309260408, guid: 8b619e67c301d6a48ac5b4bb4a4a6d93, type: 3}
       propertyPath: m_Name
       value: Mansion
+      objectReference: {fileID: 0}
+    - target: {fileID: 324689861309260408, guid: 8b619e67c301d6a48ac5b4bb4a4a6d93, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 324689861309260408, guid: 8b619e67c301d6a48ac5b4bb4a4a6d93, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 526650715925330238, guid: 8b619e67c301d6a48ac5b4bb4a4a6d93, type: 3}
       propertyPath: m_LocalPosition.y
@@ -49422,6 +49502,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tower_1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4766599746356233674, guid: 8eddbc7b607209b46b29c8bb8b7fe445, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4766599746356233674, guid: 8eddbc7b607209b46b29c8bb8b7fe445, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 8153851811286521697, guid: 8eddbc7b607209b46b29c8bb8b7fe445, type: 3}
@@ -51039,6 +51127,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Clock Tower_2
       objectReference: {fileID: 0}
+    - target: {fileID: 1455971615411489490, guid: 2fe1b9b488c1dcc45acb0be78e1df0e0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1455971615411489490, guid: 2fe1b9b488c1dcc45acb0be78e1df0e0, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 1629820488041847158, guid: 2fe1b9b488c1dcc45acb0be78e1df0e0, type: 3}
       propertyPath: m_LocalScale.x
       value: -1
@@ -51093,8 +51189,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 760774808}
+  - {fileID: 429281482}
   - {fileID: 1870717828}
   - {fileID: 1788602773}
   - {fileID: 727901836}
-  - {fileID: 429281482}
   - {fileID: 1075515532}
