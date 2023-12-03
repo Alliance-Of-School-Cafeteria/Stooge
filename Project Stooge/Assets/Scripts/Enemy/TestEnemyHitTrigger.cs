@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class TestEnemyHitTrigger : MonoBehaviour
 {
+    /* ------------- 컴포넌트 변수 ------------- */
     private Material material;
 
+    /* -------------- 이벤트 함수 -------------- */
     private void Awake()
     {
         material = GetComponent<MeshRenderer>().material;
