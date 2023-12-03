@@ -8,7 +8,6 @@ public class GrapplingController : MonoBehaviour
     private PlayerController playerController;
 
     /* --------------- 착탄 지점 --------------- */
-    private LayerMask grappleMask;
     private Vector3 grapplePoint;
 
     /* ------------- 동작 확인 변수 ------------ */
@@ -19,6 +18,8 @@ public class GrapplingController : MonoBehaviour
     [Header("설정")]
     [SerializeField]
     private Transform gunAnchor;
+    [SerializeField]
+    private LayerMask grappleMask;
     [SerializeField]
     private float maxGrappleDis = 25f;
     [SerializeField]
@@ -72,6 +73,7 @@ public class GrapplingController : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
 
+        Debug.Log("shot");
         //playerController.freeze = false;
 
         Vector3 lowestPoint = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
@@ -81,7 +83,7 @@ public class GrapplingController : MonoBehaviour
 
         if (grapplePointRelativeYPos < 0) highestPointOnArc = overShootYAxis;
 
-        //playerController.JumpToPosition(grapplePoint, highestPointOnArc);
+        playerController.JumpToPosition(grapplePoint, highestPointOnArc);
 
         StartCoroutine(StopGrapple(1f));
     }
