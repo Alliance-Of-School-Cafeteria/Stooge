@@ -212,13 +212,14 @@ public class EnemyController : MonoBehaviour
     /* --------------- 공격 관련 --------------- */
     IEnumerator Attack()
     {
+        Debug.Log("Deal");
         isChase = false;
         isAttack = true;
 
         yield return new WaitForSeconds(0.3f);
         anim.SetBool("isAttack", true);
 
-        SwingSound();
+        //SwingSound();
 
         switch (enemyMain.GetEnemyType())
         {
@@ -238,7 +239,7 @@ public class EnemyController : MonoBehaviour
                 Rigidbody rigidBullet = instantBullet.GetComponent<Rigidbody>();
                 rigidBullet.velocity = transform.forward * 20;
 
-                //instantBullet.GetComponent<BulletMain>().SetParent(transform); // Buller에 발사한 객체 정보 저장
+                instantBullet.GetComponent<BulletMain>().SetParent(transform); // Buller에 발사한 객체 정보 저장
 
                 yield return new WaitForSeconds(2f);
                 break;
