@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
         Range,
     };
 
-    /* -------------- 에너미 변수 -------------- */
+    /* ---------------- 기능관련 변수 --------------- */
 
     private Transform target;
     private bool isChase;
@@ -20,10 +20,10 @@ public class Enemy : MonoBehaviour
     private bool isDead;
 
 
-    /* --------------   인스펙터   -------------- */
+    /* ---------------    인스펙터    --------------- */
     [Header("설정")]
-    [SerializeField, Range(0, 20)]
-    private BoxCollider meleeArea;
+    [SerializeField]
+    public BoxCollider meleeArea;
     [SerializeField]
     private Type enemyType;
     [SerializeField]
@@ -31,25 +31,23 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int curHealth;
     [SerializeField]
-    private int score;
-    [SerializeField]
     private float aggroRange = 10f;
     [SerializeField]
     private float wanderRadius = 10f;
 
-    /* -------------- 선언 변수??? -------------- */
+    /* ---------------- 컴포넌트 변수 --------------- */
     protected Rigidbody _rigidbody;
     protected BoxCollider _boxCollider;
     protected MeshRenderer[] _meshRenderers;
     protected NavMeshAgent _nav;
     protected Animator _animator;
 
-    /* -------------- 이동관련변수 -------------- */
+    /* ---------------- 이동관련 변수 --------------- */
     private bool _isWandering = false;
     private bool _isAggro = false;
     private AggroPulling _aggroPulling;
-
-    /* ------------------ 이벤트------------------ */
+    private float extraRotationSpeed = 5f;
+    /* ----------------- 이벤트 변수 ---------------- */
     void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -63,6 +61,10 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        // 네브메시 움직임중 바라보는방향으로 돌리기
+        Vector3 lookrotation = _nav.steeringTarget - transform.position;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookrotation), extraRotationSpeed * Time.deltaTime);
+
         if (_nav.enabled)
         {
             if (isChase)
@@ -86,7 +88,7 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                if (!_isWandering && !_isAggro)
+                if (!_isWandering && !_isAggro && !isChase)
                     StartCoroutine(Wander());
             }
         }
@@ -97,16 +99,10 @@ public class Enemy : MonoBehaviour
         Targeting();
     }
 
-    /* --------------- 기능 함수 --------------- */
-    IEnumerator ChaseStart()
-    {
-        Debug.Log("ChaseStart called");
-        yield return new WaitForSeconds(0.8f);
-        isChase = true;
-        _animator.SetBool("isWalk", true);
-    }
 
-    /* -------------- 배회하는 변수 -------------- */
+
+
+    /* ---------------- 배회관련 변수 --------------- */
     Vector3 RandomNavSphere(Vector3 origin, float distance, int layermask)
     {
         Vector3 randomDirection = Random.insideUnitSphere * distance;
@@ -133,18 +129,20 @@ public class Enemy : MonoBehaviour
                 Transform playerTransform = colliders[0].transform;
 
                 // 배회 중 어그로가 없을 때 플레이어를 탐지하면 어그로 설정
-                _aggroPulling.gameObject.SetActive(true);
-                _aggroPulling.isAggro = true;
-                _aggroPulling.SetTarget(playerTransform);
+                if (_aggroPulling != null)
+                {
+                    _aggroPulling.gameObject.SetActive(true);
+                    _aggroPulling.isAggro = true;
+                    _aggroPulling.SetTarget(playerTransform);
+                }
 
-                // 배회 중 어그로가 없을 때 플레이어를 탐지하면 공격
+                // 여기서 enemy를 다시 가져오고 있습니다.
                 Enemy enemy = GetComponent<Enemy>();
                 if (enemy != null)
                 {
                     yield return new WaitForSeconds(2f);
                     enemy.SetTarget(playerTransform);
                     StartCoroutine("ChaseStart");
-                    
                 }
 
                 break; // 어그로가 설정되면 루프 종료
@@ -156,11 +154,9 @@ public class Enemy : MonoBehaviour
 
             yield return new WaitForSeconds(2f);
         }
+        }
 
-        _isWandering = false;
-    }
-
-    /* -------------- 타겟 지정변수 -------------- */
+    /* ---------------- 타겟지정 변수 --------------- */
     public void SetTarget(Transform newTarget)
     {
         Debug.Log("SetTarget called");
@@ -188,7 +184,15 @@ public class Enemy : MonoBehaviour
             StartCoroutine(Wander());
     }
 
-    /* -------------- 공격관련 변수 -------------- */
+    IEnumerator ChaseStart()
+    {
+        Debug.Log("ChaseStart called");
+        yield return new WaitForSeconds(0.8f);
+        isChase = true;
+        _animator.SetBool("isWalk", true);
+    }
+
+    /* ---------------- 공격관련 변수 --------------- */
     void Targeting()
     {
         if (!isDead && isChase)
@@ -223,6 +227,7 @@ public class Enemy : MonoBehaviour
         
         isChase = false;
         isAttack = true;
+        _animator.SetBool("isWalk", false);
         _animator.SetBool("isAttack", true);
         _isWandering = false;
 
@@ -238,7 +243,7 @@ public class Enemy : MonoBehaviour
                 yield return new WaitForSeconds(1f);
                 break;
 
-            case Type.Range:
+            case Type.Range: // 원거리 공격 
                 yield return new WaitForSeconds(0.5f);
 //                GameObject instantBullet = Instantiate(bullet, transform.position, transform.rotation);
 //                Rigidbody rigidBullet = instantBullet.GetComponent<Rigidbody>();
@@ -255,7 +260,7 @@ public class Enemy : MonoBehaviour
 
     }
 
-    /* -------------- 피격관련 변수 -------------- */
+    /* ---------------- 피격관련 변수 --------------- */
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -264,7 +269,7 @@ public class Enemy : MonoBehaviour
             SetTarget(other.transform);
         }
 
-        if (other.tag == "Melee")
+        if (other.tag == "Player Attack") // 공격에 받는 데미지 
         {
 //            curHealth -= weapon.damage;
 //            Vector3 reactVec = transform.position - other.transform.position;

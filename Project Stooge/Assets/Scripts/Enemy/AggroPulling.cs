@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class AggroPulling : MonoBehaviour
 {
-    public float aggroRange = 10f; // ÀÎ½ºÆåÅÍ¿¡¼­ Á¶ÀıÇÒ ¼ö ÀÖ´Â ¾î±×·Î ¹üÀ§
-    internal bool isAggro = false; // ¾î±×·Î »óÅÂ¸¦ ³ªÅ¸³»´Â ÇÃ·¡±×
-    internal Transform target;
+    private float aggroRange = 10f; // ì¸ìŠ¤í™í„°ì—ì„œ ì¡°ì ˆí•  ìˆ˜ ìˆëŠ” ì–´ê·¸ë¡œ ë²”ìœ„
+    private Transform target;
+
+    internal bool isAggro = false; // ì–´ê·¸ë¡œ ìƒíƒœë¥¼ ë‚˜íƒ€ë‚´ëŠ” í”Œë˜ê·¸
+    
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -22,12 +24,12 @@ public class AggroPulling : MonoBehaviour
                 Enemy enemy = GetComponentInParent<Enemy>();
                 if (enemy != null)
                 {
-                    // ¾î±×·Î »óÅÂ°¡ ¼³Á¤µÇ¸é Áï½Ã °ø°İÀÌ ½ÃÀÛµË´Ï´Ù.
+                    // ì–´ê·¸ë¡œ ìƒíƒœê°€ ì„¤ì •ë˜ë©´ ì¦‰ì‹œ ê³µê²©ì´ ì‹œì‘ë©ë‹ˆë‹¤.
                     enemy.SetTarget(other.transform);
                     StartCoroutine("AggroAttack");
                 }
 
-                // ¾î±×·Î Ç®¸µÀÌ ¿Ï·áµÇ¸é ºñÈ°¼ºÈ­
+                // ì–´ê·¸ë¡œ í’€ë§ì´ ì™„ë£Œë˜ë©´ ë¹„í™œì„±í™”
                 gameObject.SetActive(false);
             }
         }
