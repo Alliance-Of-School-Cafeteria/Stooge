@@ -14,9 +14,13 @@ public class EnemyController : MonoBehaviour
     private Transform target;
 
     /* --------------- 추격 관련 --------------- */
+    [SerializeField]
     private bool isChase = false;
+    [SerializeField]
     private bool isHit = false;
+    [SerializeField]
     private bool isAttack = false;
+    [SerializeField]
     private bool isAggro = false;
 
     /* ---------------- AI 변수 ---------------- */
@@ -33,10 +37,6 @@ public class EnemyController : MonoBehaviour
     private GameObject agrroPulling;
     [SerializeField]
     private Transform anchorPoint;
-    [SerializeField]
-    private AudioSource swingSource;
-    [SerializeField]
-    private AudioClip swingClip;
 
     [Header("설정")]
     public float moveDis = 3f;
@@ -268,11 +268,6 @@ public class EnemyController : MonoBehaviour
             if (meleeArea != null)
                 meleeArea.enabled = false;
         }
-    }
-
-    private void SwingSound()
-    {
-        swingSource.PlayOneShot(swingClip);
     }
 
     /* ------------- 외부 참조함수 -------------- */

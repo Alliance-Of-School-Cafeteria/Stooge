@@ -135,9 +135,9 @@ GameObject:
   - component: {fileID: 215236270}
   - component: {fileID: 215236269}
   - component: {fileID: 215236268}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -240,9 +240,9 @@ GameObject:
   - component: {fileID: 261700702}
   - component: {fileID: 261700701}
   - component: {fileID: 261700700}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -345,9 +345,9 @@ GameObject:
   - component: {fileID: 324469044}
   - component: {fileID: 324469043}
   - component: {fileID: 324469042}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -548,7 +548,7 @@ GameObject:
   - component: {fileID: 975229866}
   - component: {fileID: 975229865}
   - component: {fileID: 975229864}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Ground
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -653,7 +653,7 @@ GameObject:
   - component: {fileID: 1119997564}
   - component: {fileID: 1119997563}
   - component: {fileID: 1119997562}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Cube (2)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -758,9 +758,9 @@ GameObject:
   - component: {fileID: 1338325030}
   - component: {fileID: 1338325029}
   - component: {fileID: 1338325028}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1018,7 +1018,7 @@ GameObject:
   - component: {fileID: 1722456122}
   - component: {fileID: 1722456121}
   - component: {fileID: 1722456120}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Cube (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1123,9 +1123,9 @@ GameObject:
   - component: {fileID: 1906898966}
   - component: {fileID: 1906898965}
   - component: {fileID: 1906898964}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1226,7 +1226,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 112457375373091752, guid: 42169676f8444e7408e6f43f8ce25625, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.43
+      value: 7.83
       objectReference: {fileID: 0}
     - target: {fileID: 112457375373091752, guid: 42169676f8444e7408e6f43f8ce25625, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1234,7 +1234,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 112457375373091752, guid: 42169676f8444e7408e6f43f8ce25625, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.096
+      value: -8.5
       objectReference: {fileID: 0}
     - target: {fileID: 112457375373091752, guid: 42169676f8444e7408e6f43f8ce25625, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1267,6 +1267,10 @@ PrefabInstance:
     - target: {fileID: 1856631117339427129, guid: 42169676f8444e7408e6f43f8ce25625, type: 3}
       propertyPath: m_Name
       value: MeleeEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5266196641499135064, guid: 42169676f8444e7408e6f43f8ce25625, type: 3}
+      propertyPath: Skinned
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1407,7 +1411,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1117233951556714218, guid: 35c517115d1733a49af7f6726e14639a, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1126560588486801146, guid: 35c517115d1733a49af7f6726e14639a, type: 3}
       propertyPath: m_Layer
@@ -2225,6 +2229,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7552943378817614219, guid: 35c517115d1733a49af7f6726e14639a, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: c0e1889c8438d284f8713478a1e9fcd7, type: 2}
     - target: {fileID: 7553569976119934307, guid: 35c517115d1733a49af7f6726e14639a, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -2367,7 +2375,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8726439906247833388, guid: 35c517115d1733a49af7f6726e14639a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.11
+      value: -7.58
       objectReference: {fileID: 0}
     - target: {fileID: 8726439906247833388, guid: 35c517115d1733a49af7f6726e14639a, type: 3}
       propertyPath: m_LocalPosition.y
