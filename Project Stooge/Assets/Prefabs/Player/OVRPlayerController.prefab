@@ -6075,6 +6075,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2001059208645193170}
+  - {fileID: 5842270714475638149}
   m_Father: {fileID: 7153722863125518200}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5366355217087999604
@@ -8366,7 +8367,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2001059208645193170
 Transform:
   m_ObjectHideFlags: 0
@@ -10584,3 +10585,65 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8995706543480541117}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &9071829676179122612
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4434215774992595742}
+    m_Modifications:
+    - target: {fileID: 3239908117063664689, guid: e65abd667c565714babc0f48d93fa9d8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0015
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239908117063664689, guid: e65abd667c565714babc0f48d93fa9d8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0764
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239908117063664689, guid: e65abd667c565714babc0f48d93fa9d8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0804
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239908117063664689, guid: e65abd667c565714babc0f48d93fa9d8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.6443237
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239908117063664689, guid: e65abd667c565714babc0f48d93fa9d8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.2760823
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239908117063664689, guid: e65abd667c565714babc0f48d93fa9d8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.66034716
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239908117063664689, guid: e65abd667c565714babc0f48d93fa9d8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.26938313
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239908117063664689, guid: e65abd667c565714babc0f48d93fa9d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239908117063664689, guid: e65abd667c565714babc0f48d93fa9d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 91.407
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239908117063664689, guid: e65abd667c565714babc0f48d93fa9d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 45.378
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840683029138994446, guid: e65abd667c565714babc0f48d93fa9d8, type: 3}
+      propertyPath: m_Name
+      value: Steam Punk Sword
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e65abd667c565714babc0f48d93fa9d8, type: 3}
+--- !u!4 &5842270714475638149 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3239908117063664689, guid: e65abd667c565714babc0f48d93fa9d8, type: 3}
+  m_PrefabInstance: {fileID: 9071829676179122612}
+  m_PrefabAsset: {fileID: 0}
