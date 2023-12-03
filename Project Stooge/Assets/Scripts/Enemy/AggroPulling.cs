@@ -4,38 +4,21 @@ using UnityEngine;
 
 public class AggroPulling : MonoBehaviour
 {
-    private float aggroRange; // 인스펙터에서 조절할 수 있는 어그로 범위
-    private Transform target;
-
-    internal bool isAggro = false; // 어그로 상태를 나타내는 플래그
-    
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider target)
     {
-        if (other.CompareTag("Player"))
+        if (target.tag == "Player")
         {
-            Debug.Log("AggroPulling OnTriggerEnter called");
+            Transform player = target.GetComponentInParent<Transform>().root; // Player 최상위 오브젝트 Transform
 
-            float distance = Vector3.Distance(transform.position, other.transform.position);
 
-            if (distance < aggroRange && !isAggro)
+            if (gameObject.GetComponentInParent<EnemyController>() != null) // 잡몹용
             {
-                isAggro = true;
-
-                Enemy enemy = GetComponentInParent<Enemy>();
-                if (enemy != null)
-                {
-                    // 어그로 상태가 설정되면 즉시 공격이 시작됩니다.
-                    enemy.SetTarget(other.transform);
-                    StartCoroutine("Attack");
-                }
-
-                // 어그로 풀링이 완료되면 비활성화
-                gameObject.SetActive(false);
+                gameObject.GetComponentInParent<EnemyController>().SetTarget(player);
+                Debug.Log(gameObject.GetComponentInParent<EnemyMain>().name + " -> " + player);
             }
+            
+            gameObject.SetActive(false);
         }
-    }
-    public void SetTarget(Transform newTarget)
-    {
-        target = newTarget;
+
     }
 }
