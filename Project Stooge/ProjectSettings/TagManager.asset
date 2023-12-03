@@ -11,17 +11,17 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
+  - Player
   - Enemy
-  - EnemyDead
-  - Ground
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player Attack
+  - Enemy Attack
+  - Super Armor
+  - Object
+  - Ignore Camera
+  - Mini Map Mask
   - 
   - 
   - 
