@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     public int FixedSpeedSteps;
     public bool HmdResetsY = true;
     public bool HmdRotatesY = true;
-    public float GravityModifier = 0.379f;
+    public float GravityModifier = 0.01f;
     public bool useProfileData = true;
 
     [NonSerialized]
@@ -136,6 +136,7 @@ public class PlayerController : MonoBehaviour
 #endif
         Jump();
         MoveGrapple();
+        Gliding();
     }
 
     protected virtual void UpdateController()
@@ -427,22 +428,6 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Jump! Must be enabled manually.
-    /// </summary>
-    public bool Jump()
-    {
-        if (!OVRInput.GetDown(OVRInput.RawButton.A))
-            return false;
-
-        if (!Controller.isGrounded)
-            return false;
-
-        MoveThrottle += new Vector3(0, transform.lossyScale.y * JumpForce, 0);
-
-        return true;
-    }
-
-    /// <summary>
     /// Stop this instance.
     /// </summary>
     public void Stop()
@@ -538,6 +523,17 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    public void Jump()
+    {
+        if (!OVRInput.GetDown(OVRInput.RawButton.A))
+            return;
+
+        if (!Controller.isGrounded)
+            return;
+
+        MoveThrottle += new Vector3(0, transform.lossyScale.y * JumpForce, 0);
+    }
+
     private Vector3 velocityToSet;
     public bool freeze = false;
     private bool isGrapple = false;
@@ -566,12 +562,16 @@ public class PlayerController : MonoBehaviour
     {
         if (isGrapple)
         {
-            Debug.Log(velocityToSet.magnitude);
+            //Debug.Log(velocityToSet.magnitude);
             Controller.Move(velocityToSet * Time.deltaTime);
         }
-
-        if (isGrapple && Controller.isGrounded)
+        //Debug.Log(Controller.collisionFlags);
+        if (isGrapple && (Controller.collisionFlags != 0 || Controller.isGrounded))
+        {
+            //Debug.Log("dddd");
             isGrapple = false;
+            //Controller.Move(Vector3.zero);
+        }
     }
 
     public Vector3 CalculateJumpVelocity(Vector3 startPoint, Vector3 endPoint, float trajectoryHeight)
@@ -585,5 +585,13 @@ public class PlayerController : MonoBehaviour
             + Mathf.Sqrt(2 * (displacementY - trajectoryHeight) / gravity));
 
         return velocityXZ + velocityY;
+    }
+
+    private void Gliding()
+    {
+        if (OVRInput.Get(OVRInput.RawButton.B))
+            GravityModifier = 0.001f;
+        else
+            GravityModifier = 0.01f;
     }
 }
