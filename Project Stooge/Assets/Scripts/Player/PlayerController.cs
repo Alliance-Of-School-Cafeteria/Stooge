@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -134,6 +135,7 @@ public class PlayerController : MonoBehaviour
             buttonRotation += RotationRatchet;
 #endif
         Jump();
+        MoveGrapple();
     }
 
     protected virtual void UpdateController()
@@ -216,7 +218,8 @@ public class PlayerController : MonoBehaviour
         Vector3 predictedXZ = Vector3.Scale((Controller.transform.localPosition + moveDirection), new Vector3(1, 0, 1));
 
         // Move contoller
-        Controller.Move(moveDirection);
+        if (!freeze)
+            Controller.Move(moveDirection);
         Vector3 actualXZ = Vector3.Scale(Controller.transform.localPosition, new Vector3(1, 0, 1));
 
         if (predictedXZ != actualXZ)
@@ -535,33 +538,40 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    private Vector3 velocityToSet;
+    public bool freeze = false;
+    private bool isGrapple = false;
+
     public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
     {
         //activeGrapple = true;
 
-        velocityToSet = CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight) / 10;
+        velocityToSet = CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight) / 2;
 
-        Invoke(nameof(SetVelocity), 0.1f);
-        Invoke(nameof(ResetRestrictions), 3f);
+        Invoke(nameof(StartGrapple), 0.1f);
+        Invoke(nameof(EndGrapple), velocityToSet.magnitude / 10);
     }
 
-    private Vector3 velocityToSet;
-    private void SetVelocity()
+    private void StartGrapple()
     {
-        //enableMovementOnNextTouch = true;
-        //cam.DoFov(grappleFov);
-        //rb.velocity = velocityToSet;
-
-        Controller.Move(velocityToSet);
-        //MoveThrottle += new Vector3(velocityToSet.x, velocityToSet.y / 5, velocityToSet.z);
+        isGrapple = true;
     }
 
-    public void ResetRestrictions()
+    public void EndGrapple()
     {
-        //activeGrapple = false;
-        //cam.DoFov(85f);
+        isGrapple = false;
+    }
 
+    private void MoveGrapple()
+    {
+        if (isGrapple)
+        {
+            Debug.Log(velocityToSet.magnitude);
+            Controller.Move(velocityToSet * Time.deltaTime);
+        }
 
+        if (isGrapple && Controller.isGrounded)
+            isGrapple = false;
     }
 
     public Vector3 CalculateJumpVelocity(Vector3 startPoint, Vector3 endPoint, float trajectoryHeight)

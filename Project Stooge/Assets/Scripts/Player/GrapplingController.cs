@@ -52,7 +52,7 @@ public class GrapplingController : MonoBehaviour
         StartCoroutine(GrappleCoolDown(coolTime));
         canGrapple = false;
         isGrappling = true;
-        //playerController.freeze = true;
+        playerController.freeze = true;
 
         if (Physics.Raycast(gunAnchor.position, gunAnchor.forward, out RaycastHit hit, maxGrappleDis, grappleMask))
         {
@@ -74,7 +74,7 @@ public class GrapplingController : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         Debug.Log("shot");
-        //playerController.freeze = false;
+        playerController.freeze = false;
 
         Vector3 lowestPoint = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
 
@@ -91,7 +91,7 @@ public class GrapplingController : MonoBehaviour
     public IEnumerator StopGrapple(float time)
     {
         yield return new WaitForSeconds(time);
-        //playerController.freeze = false;
+        playerController.freeze = false;
         isGrappling = false;
         //lr.enabled = false;
     }
