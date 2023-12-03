@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AggroPulling : MonoBehaviour
 {
-    private float aggroRange = 10f; // 인스펙터에서 조절할 수 있는 어그로 범위
+    private float aggroRange; // 인스펙터에서 조절할 수 있는 어그로 범위
     private Transform target;
 
     internal bool isAggro = false; // 어그로 상태를 나타내는 플래그
@@ -26,7 +26,7 @@ public class AggroPulling : MonoBehaviour
                 {
                     // 어그로 상태가 설정되면 즉시 공격이 시작됩니다.
                     enemy.SetTarget(other.transform);
-                    StartCoroutine("AggroAttack");
+                    StartCoroutine("Attack");
                 }
 
                 // 어그로 풀링이 완료되면 비활성화

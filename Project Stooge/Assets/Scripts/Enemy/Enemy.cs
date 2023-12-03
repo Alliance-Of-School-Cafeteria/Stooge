@@ -31,9 +31,9 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int curHealth;
     [SerializeField]
-    private float aggroRange = 10f;
+    private float aggroRange = 5.0f;
     [SerializeField]
-    private float wanderRadius = 10f;
+    private float wanderRadius = 5.0f;
 
     /* ---------------- 컴포넌트 변수 --------------- */
     protected Rigidbody _rigidbody;
@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour
     private bool _isWandering = false;
     private bool _isAggro = false;
     private AggroPulling _aggroPulling;
-    private float extraRotationSpeed = 5f;
+
     /* ----------------- 이벤트 변수 ---------------- */
     void Awake()
     {
@@ -61,10 +61,6 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        // 네브메시 움직임중 바라보는방향으로 돌리기
-        Vector3 lookrotation = _nav.steeringTarget - transform.position;
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookrotation), extraRotationSpeed * Time.deltaTime);
-
         if (_nav.enabled)
         {
             if (isChase)
@@ -154,7 +150,7 @@ public class Enemy : MonoBehaviour
 
             yield return new WaitForSeconds(2f);
         }
-        }
+    }
 
     /* ---------------- 타겟지정 변수 --------------- */
     public void SetTarget(Transform newTarget)
@@ -188,8 +184,20 @@ public class Enemy : MonoBehaviour
     {
         Debug.Log("ChaseStart called");
         yield return new WaitForSeconds(0.8f);
+
         isChase = true;
         _animator.SetBool("isWalk", true);
+
+        // 여기서 어그로를 설정해야 합니다.
+        if (_aggroPulling != null)
+        {
+            _aggroPulling.gameObject.SetActive(true);
+            _aggroPulling.isAggro = true;
+            _aggroPulling.SetTarget(target);
+        }
+
+        // 추가로 어그로 어택을 시작하는 로직을 호출
+        StartCoroutine("Attack");
     }
 
     /* ---------------- 공격관련 변수 --------------- */
