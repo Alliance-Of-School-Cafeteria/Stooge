@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class EnemyMain : MonoBehaviour
 {
+
+    public enum Type { Melee, Range };
+
+    /* ------------- 컴포넌트 변수 ------------- */
     private EnemyController enemyController;
     //private Rigidbody rigid;
     private BoxCollider boxCollider;
@@ -12,10 +16,10 @@ public class EnemyMain : MonoBehaviour
     private SkinnedMeshRenderer skin;
     private Animator anim;
 
+    /* ---------------- 피격 관련 -------------- */
     private bool isDead = false;
 
-    public enum Type { Melee, Range, Tiger };
-
+    /* ---------------- 인스펙터 --------------- */
     [Header("오브젝트 연결")]
     [SerializeField]
     private AudioSource deadSource;
@@ -32,6 +36,7 @@ public class EnemyMain : MonoBehaviour
     [Range(0f, 5f)]
     public float knockbackForce = 0.3f;
 
+    /* ---------------- 이벤트 함수 --------------- */
     void Awake()
     {
         enemyController = GetComponent<EnemyController>();
@@ -39,24 +44,6 @@ public class EnemyMain : MonoBehaviour
         skin = GetComponentInChildren<SkinnedMeshRenderer>();
         //rigid = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "PlayerBullet")  // 원거리 공격
-        {
-            gameObject.layer = 10;  // 슈퍼 아머
-
-            //BulletMain bulletMain = collision.gameObject.GetComponent<BulletMain>();
-            //curHealth -= bulletMain.damage;
-            Vector3 reactDir = transform.position - collision.transform.position;
-            reactDir.y = 0f;
-
-            //enemyController.SetTarget(collision.gameObject.GetComponent<BulletMain>().GetParent()); // 발사한 객체로 타겟 변경(PlayerMain이 담겨있는 오브젝트로)
-            Destroy(collision.gameObject); // 피격된 불릿 파괴
-
-            StartCoroutine(OnDamage(reactDir));
-        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -74,6 +61,7 @@ public class EnemyMain : MonoBehaviour
         }
     }
 
+    /* ---------------- 피격함수 --------------- */
     IEnumerator OnDamage(Vector3 reactDir)
     {
         Debug.Log(gameObject.name + " Hit!");
@@ -127,7 +115,7 @@ public class EnemyMain : MonoBehaviour
     {
         deadSource.PlayOneShot(deadClip);
     }
-
+    /* --------------- 외부참조 함수 -------------- */
     public Type GetEnemyType()
     {
         return enemyType;

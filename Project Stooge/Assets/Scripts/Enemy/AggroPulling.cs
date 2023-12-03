@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AggroPulling : MonoBehaviour
 {
+    /* -------------- 이벤트 함수 -------------- */
     private void OnTriggerEnter(Collider target)
     {
         if (target.tag == "Player")

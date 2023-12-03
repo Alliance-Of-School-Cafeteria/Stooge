@@ -6,20 +6,24 @@ using UnityEngine.UIElements;
 
 public class EnemyController : MonoBehaviour
 {
+    /* ------------- 컴포넌트 변수 ------------- */
     private EnemyMain enemyMain;
     //private Rigidbody rigid;
     private NavMeshAgent nav;
     private Animator anim;
     private Transform target;
 
+    /* --------------- 추격 관련 --------------- */
     private bool isChase = false;
     private bool isHit = false;
     private bool isAttack = false;
     private bool isAggro = false;
 
+    /* ---------------- AI 변수 ---------------- */
     private int moveDir = 0;
     private int isMove = 0;
 
+    /* ---------------- 인스펙터 --------------- */
     [Header("오브젝트 연결")]
     [SerializeField]
     private BoxCollider meleeArea;
@@ -39,6 +43,7 @@ public class EnemyController : MonoBehaviour
     public float moveSpeed = 5f;
     public bool attackCancel = true;
 
+    /* -------------- 이벤트 함수 -------------- */
     void Awake()
     {
         enemyMain = GetComponent<EnemyMain>();
@@ -71,7 +76,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    // --------------------------- 타겟 관련 ------------------------
+    /* --------------- 타겟 관련 --------------- */
     public void SetTarget(Transform transform) // 타겟 (재)설정
     {
         target = transform;
@@ -98,7 +103,7 @@ public class EnemyController : MonoBehaviour
         StartCoroutine("Think", (Random.Range(0.5f, 4f)));
     }
 
-    // --------------------------- 논 어그로 ------------------------
+    /* --------------- 논 어그로 --------------- */
     void EnemyMove() // 어그로 아닐 때 이동
     {
         transform.position += transform.forward * moveSpeed * isMove * Time.deltaTime;
@@ -130,7 +135,7 @@ public class EnemyController : MonoBehaviour
         StartCoroutine("Think", (Random.Range(0.5f, 4f)));
     }
 
-    // --------------------------- 어그로 풀링 ------------------------
+    /* -------------- 어그로 풀링 --------------- */
     IEnumerator ChaseStart()
     {
         yield return new WaitForSeconds(0.8f);
@@ -166,6 +171,7 @@ public class EnemyController : MonoBehaviour
         //Debug.Log(target.parent.gameObject.ToString());
     }
 
+    /* ---------------- 추격 관련 --------------- */
     void EnemyChase()
     {
         if (!nav.enabled)
@@ -191,11 +197,6 @@ public class EnemyController : MonoBehaviour
                 targetRadius = 0.5f;
                 targetRange = 25f;
                 break;
-
-            case EnemyMain.Type.Tiger:
-                targetRadius = 3f;
-                targetRange = 15f;
-                break;
         }
 
         RaycastHit[] rayHits =
@@ -208,7 +209,7 @@ public class EnemyController : MonoBehaviour
         if (rayHits.Length > 0 && !isAttack && !isHit)
             StartCoroutine("Attack");
     }
-
+    /* --------------- 공격 관련 --------------- */
     IEnumerator Attack()
     {
         isChase = false;
@@ -242,15 +243,6 @@ public class EnemyController : MonoBehaviour
                 yield return new WaitForSeconds(2f);
                 break;
 
-            case EnemyMain.Type.Tiger:
-                yield return new WaitForSeconds(0.5f);
-                meleeArea.enabled = true;
-
-                yield return new WaitForSeconds(0.4f);
-                meleeArea.enabled = false;
-
-                yield return new WaitForSeconds(0.5f);
-                break;
         }
 
         isChase = true;
@@ -282,7 +274,7 @@ public class EnemyController : MonoBehaviour
         swingSource.PlayOneShot(swingClip);
     }
 
-    // --------------------------- 외부 참조 함수 ------------------------
+    /* ------------- 외부 참조함수 -------------- */
     public void SetIsNavEnabled(bool bol)
     {
         isChase = bol;
