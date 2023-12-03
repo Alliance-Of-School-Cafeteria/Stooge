@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMain : MonoBehaviour
+public class PlayerMain_NonVR : MonoBehaviour
 {
     private Animator anim;
     private Rigidbody rigid;
