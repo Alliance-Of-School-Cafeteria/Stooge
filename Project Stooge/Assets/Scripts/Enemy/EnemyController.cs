@@ -14,13 +14,9 @@ public class EnemyController : MonoBehaviour
     private Transform target;
 
     /* --------------- 추격 관련 --------------- */
-    [SerializeField]
     private bool isChase = false;
-    [SerializeField]
     private bool isHit = false;
-    [SerializeField]
     private bool isAttack = false;
-    [SerializeField]
     private bool isAggro = false;
 
     /* ---------------- AI 변수 ---------------- */
