@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1380,17 +1380,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5887976945559586944, guid: 42169676f8444e7408e6f43f8ce25625, type: 3}
-      propertyPath: meleeenemydeadSource
-      value: 
-      objectReference: {fileID: 2640528050019515967}
-    - target: {fileID: 5887976945559586944, guid: 42169676f8444e7408e6f43f8ce25625, type: 3}
       propertyPath: meleeenemyattackSource
       value: 
       objectReference: {fileID: 2000220769}
-    - target: {fileID: 8809944036267395576, guid: 42169676f8444e7408e6f43f8ce25625, type: 3}
-      propertyPath: meleeenemydeadClip
-      value: 
-      objectReference: {fileID: 8300000, guid: c5205d40cb145134f853babf60e39195, type: 3}
     - target: {fileID: 8809944036267395576, guid: 42169676f8444e7408e6f43f8ce25625, type: 3}
       propertyPath: meleeenemydeadSource
       value: 
@@ -1667,10 +1659,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 275053259209750097, guid: 4882c0a3de800a244892e34acde1b2ba, type: 3}
-      propertyPath: rangeenemydeadClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 08ca4b317844e384892ea7d853ac99b2, type: 3}
-    - target: {fileID: 275053259209750097, guid: 4882c0a3de800a244892e34acde1b2ba, type: 3}
       propertyPath: rangeenemydeadSource
       value: 
       objectReference: {fileID: 2662006374756385676}
@@ -1718,10 +1706,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: RangeEnemy
       objectReference: {fileID: 0}
-    - target: {fileID: 7435576788364587126, guid: 4882c0a3de800a244892e34acde1b2ba, type: 3}
-      propertyPath: rangeenemymoveClip
-      value: 
-      objectReference: {fileID: 8300000, guid: f92f0e628f791104b9826456039028dd, type: 3}
     - target: {fileID: 7435576788364587126, guid: 4882c0a3de800a244892e34acde1b2ba, type: 3}
       propertyPath: rangeenemymoveSource
       value: 
