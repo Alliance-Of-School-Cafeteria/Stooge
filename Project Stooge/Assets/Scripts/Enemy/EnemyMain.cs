@@ -20,6 +20,16 @@ public class EnemyMain : MonoBehaviour
     private bool isDead = false;
 
     /* ---------------- 인스펙터 --------------- */
+    [Header("오브젝트 연결")]
+    [SerializeField]
+    private AudioSource meleeenemydeadSource;
+    [SerializeField]
+    private AudioClip meleeenemydeadClip;
+    [SerializeField]
+    private AudioSource rangeenemydeadSource;
+    [SerializeField]
+    private AudioClip rangeenemydeadClip;
+
     [Header("설정")]
     public Type enemyType;
     public bool Skinned = false;
@@ -104,6 +114,16 @@ public class EnemyMain : MonoBehaviour
         anim.SetTrigger("doDie");
 
         Destroy(gameObject, 3); // 3초 뒤에 삭제
+    }
+    /* ---------------  사운드 함수  -------------- */
+    private void MeleeEnemyDeadSound()
+    {
+        meleeenemydeadSource.PlayOneShot(meleeenemydeadClip);
+    }
+
+    private void RangeEnemyDeadSound()
+    {
+        rangeenemydeadSource.PlayOneShot(rangeenemydeadClip);
     }
 
     /* --------------- 외부참조 함수 -------------- */

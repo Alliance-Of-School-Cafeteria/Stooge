@@ -34,6 +34,20 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private Transform anchorPoint;
 
+    /* ---------------사운드 관련 -------------- */
+    [SerializeField]
+    private AudioSource meleeenemyattackSource;
+    [SerializeField]
+    private AudioClip meleeenemyattackClip;
+    [SerializeField]
+    private AudioSource rangeenemyattackSource;
+    [SerializeField]
+    private AudioClip rangeenemyattackClip;
+    [SerializeField]
+    private AudioSource rangeenemymoveSource;
+    [SerializeField]
+    private AudioClip rangeenemymoveClip;
+
     [Header("설정")]
     public float moveDis = 3f;
     public float moveSpeed = 5f;
@@ -215,7 +229,7 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         anim.SetBool("isAttack", true);
 
-        //SwingSound();
+        MeleeEnemyAttackSound();
 
         switch (enemyMain.GetEnemyType())
         {
@@ -235,6 +249,7 @@ public class EnemyController : MonoBehaviour
                 Rigidbody rigidBullet = instantBullet.GetComponent<Rigidbody>();
                 rigidBullet.velocity = transform.forward * 20;
 
+                RangeEnemyAttackSound();
                 instantBullet.GetComponent<BulletMain>().SetParent(transform); // Buller에 발사한 객체 정보 저장
 
                 yield return new WaitForSeconds(2f);
@@ -265,6 +280,18 @@ public class EnemyController : MonoBehaviour
                 meleeArea.enabled = false;
         }
     }
+
+    private void MeleeEnemyAttackSound()
+    {
+        meleeenemyattackSource.PlayOneShot(meleeenemyattackClip);
+    }
+
+    private void RangeEnemyAttackSound()
+    {
+        rangeenemyattackSource.PlayOneShot(rangeenemyattackClip);
+    }
+
+    
 
     /* ------------- 외부 참조함수 -------------- */
     public void SetIsNavEnabled(bool bol)
