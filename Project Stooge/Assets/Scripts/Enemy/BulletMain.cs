@@ -36,7 +36,7 @@ public class BulletMain : MonoBehaviour
         if (isMelee || !groundDestroy)
             return;
 
-        if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Wall")
+        if (collision.gameObject.CompareTag("Ground"))
             Destroy(gameObject, 1);
     }
 
@@ -45,7 +45,7 @@ public class BulletMain : MonoBehaviour
         if (isMelee)
             return;
 
-        if (other.gameObject.tag == "Wall" || other.gameObject.tag == "Player")
+        if (other.CompareTag("Player") || other.CompareTag("Player Attack"))
             Destroy(gameObject);
     }
     
