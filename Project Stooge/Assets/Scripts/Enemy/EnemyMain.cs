@@ -42,7 +42,7 @@ public class EnemyMain : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "PlayerAttack")  // 근접 공격
+        if (other.CompareTag("Player Attack"))  // 근접 공격
         {
             gameObject.layer = 10;  // 슈퍼 아머
 
@@ -61,26 +61,29 @@ public class EnemyMain : MonoBehaviour
         Debug.Log(gameObject.name + " Hit!");
         enemyController.setIsHit(true);
         anim.SetBool("isWalk", false);
+        anim.SetBool("isAttack", false);
+
+        curHealth -= 10;
 
         transform.position += reactDir * knockbackForce;
 
-        if (!Skinned)
-        {
-            foreach (MeshRenderer mesh in meshs)
-                mesh.material.color = Color.red;
-        }
-        else
-            skin.material.color = Color.red;
+        //if (!Skinned)
+        //{
+        //    foreach (MeshRenderer mesh in meshs)
+        //        mesh.material.color = Color.red;
+        //}
+        //else
+        //    skin.material.color = Color.red;
 
         yield return new WaitForSeconds(0.3f);
 
-        if (!Skinned)
-        {
-            foreach (MeshRenderer mesh in meshs)
-                mesh.material.color = Color.white; // 몬스터의 원래 색깔로 변경
-        }
-        else
-            skin.material.color = Color.white;
+        //if (!Skinned)
+        //{
+        //    foreach (MeshRenderer mesh in meshs)
+        //        mesh.material.color = Color.white; // 몬스터의 원래 색깔로 변경
+        //}
+        //else
+        //    skin.material.color = Color.white;
 
         if (curHealth <= 0)
             OnDie();
