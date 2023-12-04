@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     public bool HmdRotatesY = true;
     public float GravityModifier = 0.01f;
     public bool useProfileData = true;
-
+    
     [NonSerialized]
     public float CameraHeight;
 
@@ -68,6 +68,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         Controller = gameObject.GetComponent<CharacterController>();
+        Controller.material.bounciness = 0.0f; // 탄성 없음
 
         if (Controller == null)
             Debug.LogWarning("OVRPlayerController: No CharacterController attached.");
@@ -524,7 +525,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void Jump()
+    public void Jump() // update()
     {
         if (!OVRInput.GetDown(OVRInput.RawButton.A))
             return;
@@ -593,7 +594,7 @@ public class PlayerController : MonoBehaviour
         return velocityXZ + velocityY;
     }
 
-    private void Gliding()
+    private void Gliding() // update()
     {
         if (OVRInput.Get(OVRInput.RawButton.B))
             GravityModifier = 0.001f;
@@ -601,19 +602,19 @@ public class PlayerController : MonoBehaviour
             GravityModifier = 0.01f;
     }
 
-    private void GroundCheck()
+    private void GroundCheck() // update()
     {
         if (!onGroundCheck)
             return;
 
-        Debug.DrawRay(transform.position, Vector3.down * 1.2f, Color.red);
-        Debug.Log(isGround);
+        Debug.DrawRay(transform.position, Vector3.down * 1.5f, Color.red);
 
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.2f))
-        { 
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.5f))
+        {
             isGround = true;
             onGroundCheck = false;
+            Controller.Move(Vector3.zero);
         }
     }
 }
