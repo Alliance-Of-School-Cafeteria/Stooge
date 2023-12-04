@@ -678,8 +678,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81a57a7cefb85f345863c4e12e9d3702, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deadSource: {fileID: 0}
-  deadClip: {fileID: 0}
   enemyType: 1
   Skinned: 0
   maxHealth: 100
@@ -697,12 +695,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7606997a1973a0a4f88c33de3f289b9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isChase: 0
+  isHit: 0
+  isAttack: 0
+  isAggro: 0
   meleeArea: {fileID: 0}
   bullet: {fileID: 329674518712954927, guid: 04c920bc01ebab34aafd094949171cf7, type: 3}
   agrroPulling: {fileID: 5069220470654984033}
   anchorPoint: {fileID: 2185036533419616587}
-  swingSource: {fileID: 0}
-  swingClip: {fileID: 0}
   moveDis: 3
   moveSpeed: 5
   attackCancel: 0
@@ -733,7 +733,7 @@ Transform:
   m_GameObject: {fileID: 5547413778083895838}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.317, y: 1.504, z: 1.023}
+  m_LocalPosition: {x: -0.017, y: 1.402, z: 0.86}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
