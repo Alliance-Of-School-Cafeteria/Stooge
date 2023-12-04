@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,23 +12,14 @@ public class PlayerController : MonoBehaviour
     public float JumpForce = 0.3f;
     public float RotationAmount = 1.5f;
     public float RotationRatchet = 45.0f;
-    [Tooltip("The player will rotate in fixed steps if Snap Rotation is enabled.")]
     public bool SnapRotation = false;
-    [Tooltip("[Deprecated] When enabled, snap rotation will happen about the center of the " +
-             "guardian rather than the center of the player/camera viewpoint. This (legacy) " +
-             "option should be left off except for edge cases that require extreme behavioral " +
-             "backwards compatibility.")]
     public bool RotateAroundGuardianCenter = false;
-    [Tooltip("How many fixed speeds to use with linear movement? 0=linear control")]
     public int FixedSpeedSteps;
-
     public bool HmdResetsY = true;
     public bool HmdRotatesY = true;
-
-    public float GravityModifier = 0.379f;
-
+    public float GravityModifier = 0.01f;
     public bool useProfileData = true;
-
+    
     [NonSerialized]
     public float CameraHeight;
 
@@ -54,18 +46,15 @@ public class PlayerController : MonoBehaviour
     private float MoveScaleMultiplier = 1.0f;
     private float RotationScaleMultiplier = 1.0f;
 
-    // It is rare to want to use mouse movement in VR, so ignore the mouse by default.
     private bool SkipMouseRotation = true;
-
     private bool HaltUpdateMovement = false;
     private bool prevHatLeft = false;
     private bool prevHatRight = false;
+
     private float SimulationRate = 60f;
     private float buttonRotation = 0f;
 
-    // Set to true when a snap turn has occurred, code requires one frame of centered thumbstick to enable another snap turn.
     private bool ReadyToSnapTurn;
-
     private bool playerControllerEnabled = false;
 
     void Start()
@@ -79,6 +68,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         Controller = gameObject.GetComponent<CharacterController>();
+        Controller.material.bounciness = 0.0f; // 탄성 없음
 
         if (Controller == null)
             Debug.LogWarning("OVRPlayerController: No CharacterController attached.");
@@ -146,6 +136,9 @@ public class PlayerController : MonoBehaviour
             buttonRotation += RotationRatchet;
 #endif
         Jump();
+        MoveGrapple();
+        Gliding();
+        GroundCheck();
     }
 
     protected virtual void UpdateController()
@@ -228,7 +221,8 @@ public class PlayerController : MonoBehaviour
         Vector3 predictedXZ = Vector3.Scale((Controller.transform.localPosition + moveDirection), new Vector3(1, 0, 1));
 
         // Move contoller
-        Controller.Move(moveDirection);
+        if (!freeze)
+            Controller.Move(moveDirection);
         Vector3 actualXZ = Vector3.Scale(Controller.transform.localPosition, new Vector3(1, 0, 1));
 
         if (predictedXZ != actualXZ)
@@ -300,7 +294,7 @@ public class PlayerController : MonoBehaviour
             moveInfluence = Acceleration * 0.1f * MoveScale * MoveScaleMultiplier;
 
 #if !UNITY_ANDROID // LeftTrigger not avail on Android game pad
-            moveInfluence *= 1.0f + OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger);
+            //moveInfluence *= 1.0f + OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger);
 #endif
 
             Vector2 primaryAxis = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
@@ -436,22 +430,6 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Jump! Must be enabled manually.
-    /// </summary>
-    public bool Jump()
-    {
-        if (!OVRInput.GetDown(OVRInput.RawButton.A))
-            return false;
-
-        if (!Controller.isGrounded)
-            return false;
-
-        MoveThrottle += new Vector3(0, transform.lossyScale.y * JumpForce, 0);
-
-        return true;
-    }
-
-    /// <summary>
     /// Stop this instance.
     /// </summary>
     public void Stop()
@@ -543,6 +521,100 @@ public class PlayerController : MonoBehaviour
             Vector3 euler = transform.rotation.eulerAngles;
             euler.y = InitialYRotation;
             transform.rotation = Quaternion.Euler(euler);
+        }
+    }
+
+
+    public void Jump() // update()
+    {
+        if (!OVRInput.GetDown(OVRInput.RawButton.A))
+            return;
+
+        if (!Controller.isGrounded)
+            return;
+
+        MoveThrottle += new Vector3(0, transform.lossyScale.y * JumpForce, 0);
+    }
+
+    private Vector3 velocityToSet;
+    public bool freeze = false;
+    private bool isGrapple = false;
+    public bool isGround = false;
+    private bool onGroundCheck = false;
+
+    public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
+    {
+        //activeGrapple = true;
+
+        velocityToSet = CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight) / 2;
+
+        Invoke(nameof(StartGrapple), 0.1f);
+        Invoke(nameof(StartGroundCheck), 0.2f);
+    }
+
+    private void StartGrapple()
+    {
+        isGrapple = true;
+        isGround = false;
+    }
+
+    public void StartGroundCheck()
+    {
+        onGroundCheck = true;
+    }
+
+    private void MoveGrapple() // update()
+    {
+        if (isGrapple)
+        {
+            //Debug.Log(velocityToSet.magnitude);
+            Controller.Move(velocityToSet * Time.deltaTime);
+        }
+        
+        if (isGrapple && (Controller.collisionFlags != 0 || Controller.isGrounded || isGround))
+        {
+            isGrapple = false;
+            FallSpeed = 0f;
+
+            isGround = true;
+            onGroundCheck = false;
+        }
+    }
+
+    public Vector3 CalculateJumpVelocity(Vector3 startPoint, Vector3 endPoint, float trajectoryHeight)
+    {
+        float gravity = Physics.gravity.y;
+        float displacementY = endPoint.y - startPoint.y;
+        Vector3 displacementXZ = new Vector3(endPoint.x - startPoint.x, 0f, endPoint.z - startPoint.z);
+
+        Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * trajectoryHeight);
+        Vector3 velocityXZ = displacementXZ / (Mathf.Sqrt(-2 * trajectoryHeight / gravity)
+            + Mathf.Sqrt(2 * (displacementY - trajectoryHeight) / gravity));
+
+        return velocityXZ + velocityY;
+    }
+
+    private void Gliding() // update()
+    {
+        if (OVRInput.Get(OVRInput.RawButton.B))
+            GravityModifier = 0.001f;
+        else
+            GravityModifier = 0.01f;
+    }
+
+    private void GroundCheck() // update()
+    {
+        if (!onGroundCheck)
+            return;
+
+        Debug.DrawRay(transform.position, Vector3.down * 1.5f, Color.red);
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.5f))
+        {
+            isGround = true;
+            onGroundCheck = false;
+            Controller.Move(Vector3.zero);
         }
     }
 }
