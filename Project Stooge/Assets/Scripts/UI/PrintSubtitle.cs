@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class PrintSubtitle : MonoBehaviour
 {
     /* ----------- 텍스트 관련 변수 ------------ */
-    private Text textUI;
     private string fileContent;
 
     /* ----------- 트리거 판정 변수 ------------ */
@@ -14,6 +13,8 @@ public class PrintSubtitle : MonoBehaviour
 
     /* ---------------- 인스펙터 --------------- */
     [Header("오브젝트 연결")]
+    [SerializeField]
+    private Text textUI;
     [SerializeField]
     private TextAsset textFile;
 
@@ -24,8 +25,6 @@ public class PrintSubtitle : MonoBehaviour
     /* -------------- 이벤트 함수 -------------- */
     private void Start()
     {
-        //textUI = UIManager.instance.SubtitleUI.GetComponent<Text>();
-
         ReadText(textFile);
     }
 
