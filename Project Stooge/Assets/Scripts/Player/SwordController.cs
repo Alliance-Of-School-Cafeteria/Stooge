@@ -12,6 +12,14 @@ public class SwordController : MonoBehaviour
     private float swingVelo;
 
     /* ---------------- 인스펙터 --------------- */
+    [Header("오브젝트 연결")]
+    [SerializeField]
+    private AudioSource playerattackSource;
+    [SerializeField]
+    private AudioClip playerattackClip;
+    
+    
+
     [Header("설정")]
     [SerializeField, Range(0f, 10f)]
     private float needVelo = 3f;
@@ -34,7 +42,7 @@ public class SwordController : MonoBehaviour
     private void OnAttack()
     {
         swingVelo = OVRInput.GetLocalControllerVelocity(OVRInput.Controller.RTouch).magnitude;
-
+        PlayerAttackSound();
         if (swingVelo > needVelo)
         {
             StopAllCoroutines();
@@ -54,5 +62,10 @@ public class SwordController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         trail.enabled = false;
+    }
+
+    private void PlayerAttackSound()
+    {
+        playerattackSource.PlayOneShot(playerattackClip);
     }
 }

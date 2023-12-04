@@ -15,6 +15,12 @@ public class GrapplingController : MonoBehaviour
     private bool canGrapple = true;
 
     /* ---------------- 인스펙터 --------------- */
+    [Header("오브젝트 연결")]
+    [SerializeField]
+    private AudioSource playergraplingSource;
+    [SerializeField]
+    private AudioClip playergraplingClip;
+
     [Header("설정")]
     [SerializeField]
     private Transform gunAnchor;
@@ -74,6 +80,7 @@ public class GrapplingController : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         Debug.Log("shot");
+        PlayerGraplingSound();
         playerController.freeze = false;
 
         Vector3 lowestPoint = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
@@ -102,6 +109,10 @@ public class GrapplingController : MonoBehaviour
         canGrapple = true;
     }
 
+    private void PlayerGraplingSound()
+    {
+        playergraplingSource.PlayOneShot(playergraplingClip);
+    }
     /* ------------ 외부 호출 함수 ------------- */
     public bool IsGrappling()
     {

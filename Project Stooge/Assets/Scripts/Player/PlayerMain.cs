@@ -14,6 +14,10 @@ public class PlayerMain : MonoBehaviour
     /* ---------------- 인스펙터 --------------- */
     [Header("오브젝트 연결")]
     [SerializeField]
+    private AudioSource playerdeadSource;
+    [SerializeField]
+    private AudioClip playerdeadClip;
+    [SerializeField]
     private GameObject hitEffect;
 
     [Header("설정")]
@@ -65,7 +69,7 @@ public class PlayerMain : MonoBehaviour
     {
         //gameObject.tag = "Respawn";
         //playerBody.layer = 10; // 슈퍼아머
-
+        PlayerDeadSound();
         isDead = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
@@ -74,6 +78,11 @@ public class PlayerMain : MonoBehaviour
     {
         yield return new WaitForSeconds(second);
         health += 1;
+    }
+
+    private void PlayerDeadSound()
+    {
+        playerdeadSource.PlayOneShot(playerdeadClip);
     }
 
     public bool GetIsHit()
