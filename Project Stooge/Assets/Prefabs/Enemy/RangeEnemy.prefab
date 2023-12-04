@@ -685,7 +685,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meleeenemydeadSource: {fileID: 0}
   meleeenemydeadClip: {fileID: 0}
-  rangeenemydeadSource: {fileID: 0}
+  rangeenemydeadSource: {fileID: 459476355461477963, guid: 4d1a1113784b60a40ab4b158edb79763, type: 3}
   rangeenemydeadClip: {fileID: 8300000, guid: 08ca4b317844e384892ea7d853ac99b2, type: 3}
   enemyType: 1
   Skinned: 0
@@ -710,9 +710,9 @@ MonoBehaviour:
   anchorPoint: {fileID: 3300543285902551827}
   meleeenemyattackSource: {fileID: 0}
   meleeenemyattackClip: {fileID: 0}
-  rangeenemyattackSource: {fileID: 0}
+  rangeenemyattackSource: {fileID: 6014343463063312221, guid: bb2c07997e976834891e25a578aa6723, type: 3}
   rangeenemyattackClip: {fileID: 8300000, guid: 478bc8aee703a964bbc86399af4f30ef, type: 3}
-  rangeenemymoveSource: {fileID: 0}
+  rangeenemymoveSource: {fileID: 8461512934139735606, guid: 0e2367949aeda6447840666e9b1eba86, type: 3}
   rangeenemymoveClip: {fileID: 8300000, guid: f92f0e628f791104b9826456039028dd, type: 3}
   moveDis: 3
   moveSpeed: 5

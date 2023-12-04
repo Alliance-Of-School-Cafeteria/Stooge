@@ -371,7 +371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81a57a7cefb85f345863c4e12e9d3702, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meleeenemydeadSource: {fileID: 0}
+  meleeenemydeadSource: {fileID: 8534038311816708079, guid: ff343124fe1aac44e83d7cb94353a0f1, type: 3}
   meleeenemydeadClip: {fileID: 8300000, guid: c5205d40cb145134f853babf60e39195, type: 3}
   rangeenemydeadSource: {fileID: 0}
   rangeenemydeadClip: {fileID: 0}
@@ -396,7 +396,7 @@ MonoBehaviour:
   bullet: {fileID: 0}
   agrroPulling: {fileID: 6464543907102582428}
   anchorPoint: {fileID: 0}
-  meleeenemyattackSource: {fileID: 0}
+  meleeenemyattackSource: {fileID: 8050542465335276240, guid: 42dc92e6926f5bc4e88d8bad0a49230b, type: 3}
   meleeenemyattackClip: {fileID: 8300000, guid: 2e844490d770e884991999db037c426c, type: 3}
   rangeenemyattackSource: {fileID: 0}
   rangeenemyattackClip: {fileID: 0}
