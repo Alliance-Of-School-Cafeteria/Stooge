@@ -616,14 +616,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7606997a1973a0a4f88c33de3f289b9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isChase: 0
-  isHit: 0
-  isAttack: 0
-  isAggro: 0
   meleeArea: {fileID: 0}
   bullet: {fileID: 329674518712954927, guid: 04c920bc01ebab34aafd094949171cf7, type: 3}
   agrroPulling: {fileID: 8187441465728975355}
   anchorPoint: {fileID: 3300543285902551827}
+  meleeenemyattackSource: {fileID: 0}
+  meleeenemyattackClip: {fileID: 0}
+  rangeenemyattackSource: {fileID: 0}
+  rangeenemyattackClip: {fileID: 8300000, guid: 478bc8aee703a964bbc86399af4f30ef, type: 3}
+  rangeenemymoveSource: {fileID: 0}
+  rangeenemymoveClip: {fileID: 0}
   moveDis: 3
   moveSpeed: 5
   attackCancel: 0
