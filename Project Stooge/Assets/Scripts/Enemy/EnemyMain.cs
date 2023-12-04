@@ -1,81 +1,139 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class EnemyMain : MonoBehaviour
 {
 
-    public int maxHealth;
-    public int curHealth;
+    public enum Type { Melee, Range };
 
-    
+    /* ------------- 컴포넌트 변수 ------------- */
+    private EnemyController enemyController;
+    //private Rigidbody rigid;
+    //private BoxCollider boxCollider;
+    private MeshRenderer[] meshs;
+    private SkinnedMeshRenderer skin;
+    private Animator anim;
 
+    /* ---------------- 피격 관련 -------------- */
+    private bool isDead = false;
 
-    Rigidbody rigid;
-    BoxCollider boxCollider;
-    Material mat;
+    /* ---------------- 인스펙터 --------------- */
+    [Header("오브젝트 연결")]
+    [SerializeField]
+    private AudioSource meleeenemydeadSource;
+    [SerializeField]
+    private AudioClip meleeenemydeadClip;
+    [SerializeField]
+    private AudioSource rangeenemydeadSource;
+    [SerializeField]
+    private AudioClip rangeenemydeadClip;
 
+    [Header("설정")]
+    public Type enemyType;
+    public bool Skinned = false;
+    [Range(1f, 1000f)]
+    public int maxHealth = 100;
+    [Range(1f, 1000f)]
+    public int curHealth = 100;
+    [Range(0f, 5f)]
+    public float knockbackForce = 0.3f;
+
+    /* ---------------- 이벤트 함수 --------------- */
     void Awake()
     {
-        rigid = GetComponent<Rigidbody>();
-        boxCollider = GetComponent<BoxCollider>();
-        mat = GetComponent<MeshRenderer>().material;
-
+        enemyController = GetComponent<EnemyController>();
+        meshs = GetComponentsInChildren<MeshRenderer>();
+        skin = GetComponentInChildren<SkinnedMeshRenderer>();
+        //rigid = GetComponent<Rigidbody>();
+        anim = GetComponentInChildren<Animator>();
     }
-    void FreezeVelocity()
+
+    void OnTriggerEnter(Collider other)
     {
-        rigid.velocity = Vector3.zero;
-        rigid.angularVelocity = Vector3.zero;
+        if (other.CompareTag("Player Attack"))  // 근접 공격
+        {
+            gameObject.layer = 10;  // 슈퍼 아머
+
+            Vector3 reactDir = transform.position - other.transform.position;
+            reactDir.y = 0f;
+
+            enemyController.SetTarget(other.GetComponentInParent<Transform>().root); // 타겟 변경(PlayerMain이 담겨있는 오브젝트로)
+            //Debug.Log(other.GetComponentInParent<Transform>().root.ToString());
+            StartCoroutine("OnDamage", reactDir);
+        }
     }
 
-    void FixedUpdate()
+    /* ---------------- 피격함수 --------------- */
+    IEnumerator OnDamage(Vector3 reactDir)
     {
-        FreezeVelocity();
+        Debug.Log(gameObject.name + " Hit!");
+        enemyController.setIsHit(true);
+        anim.SetBool("isWalk", false);
+        anim.SetBool("isAttack", false);
 
+        curHealth -= 10;
+
+        transform.position += reactDir * knockbackForce;
+
+        //if (!Skinned)
+        //{
+        //    foreach (MeshRenderer mesh in meshs)
+        //        mesh.material.color = Color.red;
+        //}
+        //else
+        //    skin.material.color = Color.red;
+
+        yield return new WaitForSeconds(0.3f);
+
+        //if (!Skinned)
+        //{
+        //    foreach (MeshRenderer mesh in meshs)
+        //        mesh.material.color = Color.white; // 몬스터의 원래 색깔로 변경
+        //}
+        //else
+        //    skin.material.color = Color.white;
+
+        if (curHealth <= 0)
+            OnDie();
+        else
+            gameObject.layer = 7;  // 슈퍼 아머 해제
+
+        enemyController.setIsHit(false);
     }
 
+    void OnDie()
+    {
+        gameObject.layer = 10;  // 슈퍼 아머
+        isDead = true;
 
-    
-//    void OnTriggerEnter(Collider other)
-//    {
-//        //플레이어의 공격을 받을시
-//        if(other.tag == "Attack")
-//        {
-//            Weapon weapon = other.GetComponent<Weapon>();
-//            curHealth -= weapon.damage; // 현재 체력 감소
-//            Vector3 reactVec = transform.position - other.transform.position; // 받은 데미지방향값 저장
-//            StartCoroutine(OnDamage(reactVec));
-//        }
-//        else if (other.tag == "Bullet")
-//        {
-//            Bullet bullet = other.GetComponent<bullet>();
-//            curHealth -= bullet.damage; //현재 체력 감소
-//            Vector3 reactVec = transform.position - other.transform.position; // 받은 데미지방향값 저장
-//            StartCoroutine(OnDamage(reactVec));
-//       }
-//    }
-//
-//    IEnumerator OnDamage(Vector3 reactVec)
-//    {
-//        mat.color = Color.red; // 피격판정 효과
-//        yield return new WaitForSeconds(0.1f); // 0.1초 쉬었다가
-//
-//        if(curHealth > 0) // 현재 체력이 0보다 클시
-//        {
-//            mat.color = Color.null; // 피격판정시 색변환
-//            /* 벡터값 설정 */
-//            reactVec = reactVec.nomalized;
-//            reactVec += Vector3.back;
-//            //뒤로 밀려남
-//            rigid.AddForce(reactVec * 5, ForceMode.Impulse);
-//        }
-//        else
-//        {
-//            mat.color = Color.//원래 색으로
-//            gameObject.layer = 7;
-//            Destroy(gameObject, 2); // 현재 체력이 0보다 작을시 사망
-//        }
-//    }
+        //rigid.velocity = Vector3.zero;
+        enemyController.SetIsNavEnabled(false);
+
+        anim.SetTrigger("doDie");
+
+        Destroy(gameObject, 3); // 3초 뒤에 삭제
+    }
+    /* ---------------  사운드 함수  -------------- */
+    private void MeleeEnemyDeadSound()
+    {
+        meleeenemydeadSource.PlayOneShot(meleeenemydeadClip);
+    }
+
+    private void RangeEnemyDeadSound()
+    {
+        rangeenemydeadSource.PlayOneShot(rangeenemydeadClip);
+    }
+
+    /* --------------- 외부참조 함수 -------------- */
+    public Type GetEnemyType()
+    {
+        return enemyType;
+    }
+
+    public bool GetIsDead()
+    {
+        return isDead;
+    }
 }
-
