@@ -137,6 +137,7 @@ public class PlayerController : MonoBehaviour
         Jump();
         MoveGrapple();
         Gliding();
+        GroundCheck();
     }
 
     protected virtual void UpdateController()
@@ -537,6 +538,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 velocityToSet;
     public bool freeze = false;
     private bool isGrapple = false;
+    public bool isGround = false;
+    private bool onGroundCheck = false;
 
     public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
     {
@@ -545,20 +548,21 @@ public class PlayerController : MonoBehaviour
         velocityToSet = CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight) / 2;
 
         Invoke(nameof(StartGrapple), 0.1f);
-        Invoke(nameof(EndGrapple), velocityToSet.magnitude / 10);
+        Invoke(nameof(StartGroundCheck), 0.2f);
     }
 
     private void StartGrapple()
     {
         isGrapple = true;
+        isGround = false;
     }
 
-    public void EndGrapple()
+    public void StartGroundCheck()
     {
-        isGrapple = false;
+        onGroundCheck = true;
     }
 
-    private void MoveGrapple()
+    private void MoveGrapple() // update()
     {
         if (isGrapple)
         {
@@ -566,13 +570,13 @@ public class PlayerController : MonoBehaviour
             Controller.Move(velocityToSet * Time.deltaTime);
         }
         
-        if (isGrapple && (Controller.collisionFlags != 0 || Controller.isGrounded))
+        if (isGrapple && (Controller.collisionFlags != 0 || Controller.isGrounded || isGround))
         {
-            //Debug.Log("dddd");
             isGrapple = false;
-            //freeze = false;
             FallSpeed = 0f;
-            //Controller.Move(Vector3.zero);
+
+            isGround = true;
+            onGroundCheck = false;
         }
     }
 
@@ -595,5 +599,21 @@ public class PlayerController : MonoBehaviour
             GravityModifier = 0.001f;
         else
             GravityModifier = 0.01f;
+    }
+
+    private void GroundCheck()
+    {
+        if (!onGroundCheck)
+            return;
+
+        Debug.DrawRay(transform.position, Vector3.down * 1.2f, Color.red);
+        Debug.Log(isGround);
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.2f))
+        { 
+            isGround = true;
+            onGroundCheck = false;
+        }
     }
 }

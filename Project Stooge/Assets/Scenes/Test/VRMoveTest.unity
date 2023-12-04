@@ -1296,7 +1296,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 628173740432893031, guid: 2e909dba9234e1c40a9333dfaac3272d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.16
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 628173740432893031, guid: 2e909dba9234e1c40a9333dfaac3272d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1333,6 +1333,10 @@ PrefabInstance:
     - target: {fileID: 3099843186178258915, guid: 2e909dba9234e1c40a9333dfaac3272d, type: 3}
       propertyPath: m_Name
       value: OVRPlayerController
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099843186178258915, guid: 2e909dba9234e1c40a9333dfaac3272d, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
