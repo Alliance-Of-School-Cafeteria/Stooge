@@ -185,8 +185,8 @@ public class EnemyController : MonoBehaviour
         switch (enemyMain.GetEnemyType())
         {
             case EnemyMain.Type.Melee:
-                targetRadius = 1.5f;
-                targetRange = 3f;
+                targetRadius = 1f;
+                targetRange = 0.5f;
                 break;
 
             case EnemyMain.Type.Range:

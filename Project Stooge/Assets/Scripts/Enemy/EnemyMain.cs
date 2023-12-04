@@ -11,7 +11,7 @@ public class EnemyMain : MonoBehaviour
     /* ------------- 컴포넌트 변수 ------------- */
     private EnemyController enemyController;
     //private Rigidbody rigid;
-    private BoxCollider boxCollider;
+    //private BoxCollider boxCollider;
     private MeshRenderer[] meshs;
     private SkinnedMeshRenderer skin;
     private Animator anim;
@@ -85,7 +85,7 @@ public class EnemyMain : MonoBehaviour
         if (curHealth <= 0)
             OnDie();
         else
-            gameObject.layer = 8;  // 슈퍼 아머 해제
+            gameObject.layer = 7;  // 슈퍼 아머 해제
 
         enemyController.setIsHit(false);
     }

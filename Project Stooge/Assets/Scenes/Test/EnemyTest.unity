@@ -1605,6 +1605,10 @@ PrefabInstance:
       propertyPath: m_Height
       value: 1.8
       objectReference: {fileID: 0}
+    - target: {fileID: 5931003794124894106, guid: 42169676f8444e7408e6f43f8ce25625, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8126476183666588792, guid: 42169676f8444e7408e6f43f8ce25625, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1679,6 +1683,10 @@ PrefabInstance:
     - target: {fileID: 5751910279114875222, guid: 4882c0a3de800a244892e34acde1b2ba, type: 3}
       propertyPath: m_Name
       value: RangeEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751910279114875222, guid: 4882c0a3de800a244892e34acde1b2ba, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
