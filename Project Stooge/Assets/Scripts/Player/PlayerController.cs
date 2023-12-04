@@ -37,7 +37,6 @@ public class PlayerController : MonoBehaviour
 
     protected CharacterController Controller = null;
     protected OVRCameraRig CameraRig = null;
-    private PlayerMain playerMain;
 
     private float MoveScale = 1.0f;
     private Vector3 MoveThrottle = Vector3.zero;
@@ -125,9 +124,6 @@ public class PlayerController : MonoBehaviour
             else
                 return;
         }
-
-        if (playerMain.GetIsDead() == true)
-            return;
 
         //todo: enable for Unity Input System
 #if ENABLE_LEGACY_INPUT_MANAGER
