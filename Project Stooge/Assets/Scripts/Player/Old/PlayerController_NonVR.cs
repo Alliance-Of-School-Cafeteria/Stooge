@@ -137,7 +137,7 @@ public class PlayerController_NonVR : MonoBehaviour
         {
             isJump = false;
             //anim.SetBool("isJump", false);
-            Debug.Log(rigid.velocity.y);
+            //Debug.Log(rigid.velocity.y);
         }
     }
 }
