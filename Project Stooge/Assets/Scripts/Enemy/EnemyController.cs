@@ -226,7 +226,7 @@ public class EnemyController : MonoBehaviour
                 yield return new WaitForSeconds(0.6f);
                 meleeArea.enabled = false;
 
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(0.5f);
                 break;
 
             case EnemyMain.Type.Range:
