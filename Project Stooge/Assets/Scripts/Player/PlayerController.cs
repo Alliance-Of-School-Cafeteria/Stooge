@@ -565,11 +565,13 @@ public class PlayerController : MonoBehaviour
             //Debug.Log(velocityToSet.magnitude);
             Controller.Move(velocityToSet * Time.deltaTime);
         }
-        //Debug.Log(Controller.collisionFlags);
+        
         if (isGrapple && (Controller.collisionFlags != 0 || Controller.isGrounded))
         {
             //Debug.Log("dddd");
             isGrapple = false;
+            //freeze = false;
+            FallSpeed = 0f;
             //Controller.Move(Vector3.zero);
         }
     }
